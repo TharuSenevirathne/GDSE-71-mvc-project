@@ -161,7 +161,10 @@ public class Dto {
         this.postalcode = postalcode;
     }
     
-    
+    @Override
+    public String toString (){
+        return "Dto{"+"id="+id+",title="+title+",name="+name+",dob="+dob+",salary="+salary+",address="+address+",city="+city+",province="+province+",postalcode="+postalcode+'}';
+    }
 
 
 

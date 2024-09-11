@@ -9,6 +9,9 @@ import edu.ijse.mvc.db.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -72,6 +75,42 @@ public class model {
         return result > 0 ? "Successfully Deleted" : "Failed";
         
     }
+     
+     public Dto search (String id) throws Exception{
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * from WHERE id = ? ";                      
+        PreparedStatement statement = connection.prepareStatement(sql);
+                
+        statement.setString (1,id);
+        
+        ResultSet rst = statement.executeQuery();
+        
+        if(rst.next()){
+        Dto dto = new Dto(rst.getString(1),rst.getString(2),rst.getString(3),rst.getString(4),rst.getDouble(5),rst.getString(6),rst.getString(7),rst.getString(8),rst.getString(9));
+        return dto;
+        
+        }
+        
+        return null;
+        
+    }   
     
-    
+     
+     public List< Dto > getAll () throws Exception{
+        Connection connection = DBConnection.getInstance().getConnection();
+        String sql = "SELECT * Customer ";                 
+        PreparedStatement statement = connection.prepareStatement(sql);
+                
+       List < Dto > Dtos = new ArrayList<>();
+        
+        ResultSet rst = statement.executeQuery();
+        
+        while(rst.next()){
+        Dto dto = new Dto(rst.getString(1),rst.getString(2),rst.getString(3),rst.getString(4),rst.getDouble(5),rst.getString(6),rst.getString(7),rst.getString(8),rst.getString(9));
+        Dtos.add(dto);
+        }
+        
+        return Dtos;
+        
+    }   
 }  
